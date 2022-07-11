@@ -33,10 +33,17 @@ const config = {
         ],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
         generator: {
           filename: 'assets/img/[name][ext][query]',
+        },
+      },
+      {
+        test: /\.(svg)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/svg/[name][ext][query]',
         },
       },
       {

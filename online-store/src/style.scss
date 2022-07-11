@@ -1,81 +1,91 @@
-/* reset.css*/
-* {
-  padding: 0;
-  margin: 0;
-  border: 0;
-}
-*,
-*:before,
-*:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-:focus,
-:active {
-  outline: none;
-}
-a:focus,
-a:active {
-  outline: none;
-}
-
-nav,
-footer,
-header,
-aside {
-  display: block;
-}
-
-html,
-body {
-  height: 100%;
-  width: 100%;
-  font-size: 100%;
-  line-height: 1;
-  font-size: 14px;
-  -ms-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-}
-input,
-button,
-textarea {
-  font-family: inherit;
-}
-
-input::-ms-clear {
-  display: none;
-}
-button {
-  cursor: pointer;
-}
-button::-moz-focus-inner {
-  padding: 0;
-  border: 0;
-}
-a,
-a:visited {
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: none;
-}
-ul li {
-  list-style: none;
-}
-img {
-  vertical-align: top;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-size: inherit;
-  font-weight: 400;
-}
+@import './styles/reset', './styles/vars', './styles/fonts';
 
 /* main page style */
+body {
+  padding: 1rem;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto';
+  color: $color_main-white;
+}
+
+.header {
+  height: 9em;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+  padding: 0 3em;
+  background-color: $color_main-black;
+  border-radius: 1em;
+}
+
+.header-logo {
+  justify-self: start;
+  width: 8.75em;
+  height: 6.313em;
+  background: url('./assets/svg/logo.svg') center / cover no-repeat;
+}
+
+.header-title {
+  font-family: 'Metal';
+  font-size: 6em;
+  color: #ff7c02;
+  text-shadow: #fff 5px 0px 0px, #fff 4.90033px 0.993347px 0px, #fff 4.60531px 1.94709px 0px,
+    #fff 4.12668px 2.82321px 0px, #fff 3.48353px 3.58678px 0px, #fff 2.70151px 4.20736px 0px,
+    #fff 1.81179px 4.6602px 0px, #fff 0.849836px 4.92725px 0px, #fff -0.145998px 4.99787px 0px,
+    #fff -1.13601px 4.86924px 0px, #fff -2.08073px 4.54649px 0px, #fff -2.94251px 4.04248px 0px,
+    #fff -3.68697px 3.37732px 0px, #fff -4.28444px 2.57751px 0px, #fff -4.71111px 1.67494px 0px,
+    #fff -4.94996px 0.7056px 0px, #fff -4.99147px -0.291871px 0px, #fff -4.83399px -1.27771px 0px,
+    #fff -4.48379px -2.2126px 0px, #fff -3.95484px -3.05929px 0px, #fff -3.26822px -3.78401px 0px,
+    #fff -2.4513px -4.35788px 0px, #fff -1.53666px -4.75801px 0px, #fff -0.560763px -4.96845px 0px,
+    #fff 0.437495px -4.98082px 0px, #fff 1.41831px -4.79462px 0px, #fff 2.34258px -4.41727px 0px,
+    #fff 3.17346px -3.86382px 0px, #fff 3.87783px -3.15633px 0px, #fff 4.4276px -2.32301px 0px,
+    #fff 4.80085px -1.39708px 0px, #fff 4.98271px -0.415447px 0px;
+}
+
+.header-search {
+  justify-self: end;
+  width: 18.75em;
+  height: 3.125em;
+  padding: 0 0.8em;
+  font-size: 1.5em;
+  border-radius: 1em;
+}
+
+.main {
+  width: 100%;
+  flex: 1 1 auto;
+}
+
+.footer {
+  height: 6.25em;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+  padding: 0 3em;
+  background-color: $color_main-black;
+  border-radius: 1em;
+}
+
+.footer-rsschool {
+  justify-self: start;
+  width: 11.75em;
+  height: 4.375em;
+  background: url('./assets/svg/rs-school-js.svg') center / cover no-repeat;
+}
+
+.footer-year {
+  font-size: 2em;
+}
+
+.footer-github {
+  justify-self: end;
+  width: 4.375em;
+  height: 4.375em;
+  background: url('./assets/svg/github.svg') center / cover no-repeat;
+}
