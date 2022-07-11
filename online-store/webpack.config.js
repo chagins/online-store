@@ -1,6 +1,7 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 const config = {
   entry: path.resolve(__dirname, './src/index.ts'),
@@ -16,6 +17,11 @@ const config = {
       filename: 'index.html',
     }),
     new CleanWebpackPlugin(),
+    new CopyPlugin({
+      patterns: [
+        { from: "./src/assets/img", to: "../dist/assets/img" },
+      ],
+    })
   ],
   module: {
     rules: [
@@ -29,7 +35,13 @@ const config = {
         use: [
           "style-loader",   // Creates `style` nodes from JS strings
           "css-loader",     // Translates CSS into CommonJS
-          "sass-loader",    // Compiles Sass to CSS
+          // "sass-loader",    // Compiles Sass to CSS
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: true,
+            }
+          }
         ],
       },
       {

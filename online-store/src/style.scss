@@ -1,18 +1,19 @@
-@import './styles/reset', './styles/vars', './styles/fonts';
-
+@import './styles/root';
 /* main page style */
-body {
-  padding: 1rem;
+.body {
+  padding: 0.8rem;
   min-height: 100%;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
   font-family: 'Roboto';
   color: $color_main-white;
+  font-size: 0.7em;
 }
 
 .header {
-  height: 9em;
   width: 100%;
+  flex: 0 0 9em;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
@@ -56,13 +57,22 @@ body {
 }
 
 .main {
-  width: 100%;
   flex: 1 1 auto;
+  width: 100%;
+  // display: flex;
+}
+
+.content {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  column-gap: 1rem;
+  row-gap: 1.5rem;
 }
 
 .footer {
-  height: 6.25em;
   width: 100%;
+  flex: 0 0 6.25em;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
