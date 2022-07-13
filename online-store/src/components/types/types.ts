@@ -28,4 +28,10 @@ export interface IProducts {
 
 export type callbackFun<T> = (data: T) => void;
 
-export type RequireContext = __WebpackModuleApi.RequireContext;
+export interface ILoader {
+  load<T>(data: T, callback: (data: T) => void): void;
+}
+
+export interface ILoaderConstructable {
+  new (): ILoader;
+}

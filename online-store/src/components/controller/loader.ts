@@ -1,7 +1,7 @@
-import { callbackFun } from '../types/types';
+import { callbackFun, ILoader } from '../types/types';
 
-class Loader {
-  protected load<T>(data: T, drawCallback: callbackFun<T>): void {
+class Loader implements ILoader {
+  public load<T>(data: T, drawCallback: callbackFun<T>): void {
     drawCallback(data);
   }
 }

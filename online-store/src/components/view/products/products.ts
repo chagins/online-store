@@ -7,8 +7,6 @@ class Products {
     const maxRating = 5;
 
     products.forEach((item): void => {
-      console.log(item);
-
       const productCard: HTMLDivElement = document.createElement('div');
       productCard.classList.add('product-card');
 
