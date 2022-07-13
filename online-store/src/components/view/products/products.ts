@@ -1,9 +1,45 @@
 import './products.scss';
 import { IProduct } from '../../types/types';
 
+const sortingFields: string[] = ['product', 'year', 'rating', 'price'];
+const sortingOrders = new Map<number, string>([
+  [129123, 'ascending'], // 🡣
+  [129121, 'descending'], // 🡡
+]);
+
 class Products {
+  container: HTMLDivElement | null;
+
+  constructor() {
+    this.container = document.querySelector('.content');
+    const contentHeader: HTMLDivElement = document.createElement('div');
+    contentHeader.classList.add('content-header');
+
+    const inputSort: HTMLSelectElement = document.createElement('select');
+    inputSort.classList.add('input-sort');
+
+    for (const field of sortingFields) {
+      for (const [orderKey, orderValue] of sortingOrders) {
+        const option: HTMLOptionElement = document.createElement('option');
+        option.classList.add('option-sort');
+        option.value = `${field}:${orderValue}`;
+        const orderSymbol = String.fromCodePoint(orderKey);
+        option.innerText = `${field.charAt(0).toUpperCase()}${field.slice(1)} ${orderSymbol}`;
+        inputSort.appendChild(option);
+      }
+    }
+
+    contentHeader?.appendChild(inputSort);
+    this.container?.appendChild(contentHeader);
+  }
+
+  private clearContent(): void {
+    const cards = this.container?.querySelectorAll('.product-card') as NodeListOf<Element>;
+    if (cards) cards?.forEach((element: Element): void => element.remove());
+  }
+
   public draw(products: IProduct[]): void {
-    const container: HTMLDivElement | null = document.querySelector('.content');
+    this.clearContent();
     const maxRating = 5;
 
     products.forEach((item): void => {
@@ -65,7 +101,7 @@ class Products {
       cardProps.appendChild(productDetails);
       productCard.appendChild(cardProps);
 
-      container?.appendChild(productCard);
+      this.container?.appendChild(productCard);
     });
   }
 }

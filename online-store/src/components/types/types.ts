@@ -26,10 +26,18 @@ export interface IProducts {
   bikes: IProduct[];
 }
 
+export type sortingField = 'product' | 'year' | 'rating' | 'price';
+export type sortingOrder = 'ascending' | 'descending';
+
+export interface ISettings {
+  sortField: sortingField;
+  sortOrder: sortingOrder;
+}
+
 export type callbackFun<T> = (data: T) => void;
 
 export interface ILoader {
-  load<T>(data: T, callback: (data: T) => void): void;
+  load<T extends object>(data: T, callback: (data: T) => void): void;
 }
 
 export interface ILoaderConstructable {
