@@ -59,15 +59,20 @@
 .main {
   flex: 1 1 auto;
   width: 100%;
-  // display: flex;
+  display: flex;
+  gap: 1rem;
 }
 
 .content {
+  width: 100%;
   display: flex;
+  padding: 1rem;
   flex-flow: row wrap;
   justify-content: center;
   column-gap: 1rem;
   row-gap: 1.5rem;
+  box-shadow: 1px 1px 4px #00000040;
+  border-radius: 1rem;
 }
 
 .footer {
@@ -98,7 +103,4 @@
   width: 4.375em;
   height: 4.375em;
   background: url('./assets/svg/github.svg') center / cover no-repeat;
-}
-
-.content-header {
 }

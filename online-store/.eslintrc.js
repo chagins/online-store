@@ -17,14 +17,14 @@ module.exports = {
   },
   plugins: [
     '@typescript-eslint', 
-    "prettier"
+    //"prettier"
   ],
   rules: {
     "no-debugger": "off",
     "no-console": 0,
     "class-methods-use-this": "off",
     "indent": ["error", 2],
-    "prettier/prettier": "error"
+    // "prettier/prettier": "error"
   },
   ignorePatterns: ["**/*.js"]
 };
