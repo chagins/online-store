@@ -5,14 +5,19 @@ class Header {
   private container: HTMLDivElement | null;
 
   constructor() {
-    this.container = document.querySelector('.content');
+    const parentContainer = document.querySelector('.content');
+    const contentHeader: HTMLDivElement = document.createElement('div');
+    contentHeader.classList.add('content-header');
+    parentContainer?.prepend(contentHeader);
+    this.container = contentHeader;
+  }
+
+  private clearContent(): void {
+    if (this.container) this.container.innerHTML = '';
   }
 
   public draw(settings: ISettings, controls: IControls): void {
-    if (this.container) this.container.innerHTML = '';
-
-    const contentHeader: HTMLDivElement = document.createElement('div');
-    contentHeader.classList.add('content-header');
+    this.clearContent();
 
     const inputSort: HTMLSelectElement = document.createElement('select');
     inputSort.classList.add('input-sort');
@@ -29,9 +34,8 @@ class Header {
 
     inputSort.value = `${settings.sort.fieldCurrent}:${settings.sort.orderCurrent}`;
 
-    contentHeader?.appendChild(inputSort);
+    this.container?.appendChild(inputSort);
     controls.sort = inputSort;
-    this.container?.prepend(contentHeader);
   }
 }
 

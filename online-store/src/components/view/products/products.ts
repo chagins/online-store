@@ -5,17 +5,28 @@ class Products {
   private container: HTMLDivElement | null;
 
   constructor() {
-    this.container = document.querySelector('.content');
+    const parentContainer = document.querySelector('.content');
+    const contentProducts: HTMLDivElement = document.createElement('div');
+    contentProducts.classList.add('content-products');
+    parentContainer?.appendChild(contentProducts);
+    this.container = contentProducts;
   }
 
   private clearContent(): void {
-    const cards = this.container?.querySelectorAll('.product-card') as NodeListOf<Element>;
-    if (cards) cards?.forEach((element: Element): void => element.remove());
+    if (this.container) this.container.innerHTML = '';
   }
 
   public draw(products: IProduct[]): void {
     this.clearContent();
     const maxRating = 5;
+
+    if (products.length === 0) {
+      if (this.container) {
+        this.container.style.color = '#000';
+        this.container.style.fontSize = '1.5rem';
+        this.container.innerText = 'Nothing was found. Please try again 🤷';
+      }
+    }
 
     products.forEach((item): void => {
       const productCard: HTMLDivElement = document.createElement('div');
