@@ -1,4 +1,4 @@
-import { ISettings } from '../../types/types';
+import { IControls, ISettings } from '../../types/types';
 import './header.scss';
 
 class Header {
@@ -8,7 +8,7 @@ class Header {
     this.container = document.querySelector('.content');
   }
 
-  public draw(settings: ISettings): void {
+  public draw(settings: ISettings, controls: IControls): void {
     if (this.container) this.container.innerHTML = '';
 
     const contentHeader: HTMLDivElement = document.createElement('div');
@@ -30,6 +30,7 @@ class Header {
     inputSort.value = `${settings.sort.fieldCurrent}:${settings.sort.orderCurrent}`;
 
     contentHeader?.appendChild(inputSort);
+    controls.sort = inputSort;
     this.container?.prepend(contentHeader);
   }
 }

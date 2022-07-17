@@ -106,7 +106,7 @@ class AppSettings implements IAppSettings {
     return this;
   }
 
-  // setting default filtering and range values
+  // set default filtering and range values
   setDefaultSettings(): AppSettings {
     for (const filterName in this.appSettings.filter) {
       const filterNameValue = filterName as filteringField;

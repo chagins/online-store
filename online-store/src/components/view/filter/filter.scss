@@ -56,7 +56,6 @@
     }
   }
 
-  .filter-btn,
   .reset-btn {
     margin-top: 1rem;
     width: 100%;
@@ -68,21 +67,12 @@
     box-shadow: 0px 4px 4px #00000040;
 
     &:hover {
-      color: $color_main-yellow;
+      color: $color_title-orange;
     }
 
     &:active {
       transform: translateY(2px);
       box-shadow: none;
-    }
-  }
-
-  .reset-btn {
-    background-color: $color_main-white;
-    color: $color_main-black;
-
-    &:hover {
-      color: $color_title-orange;
     }
   }
 }

@@ -1,4 +1,4 @@
-import { filteringField, ISettings, rangingField, sliderUI } from '../../types/types';
+import { filteringField, IControls, ISettings, rangingField } from '../../types/types';
 import noUiSlider, { API } from 'nouislider';
 import wNumb from 'wnumb';
 
@@ -6,14 +6,12 @@ import './filter.scss';
 
 class Filter {
   private container: HTMLDivElement | null;
-  public sliders?: sliderUI[];
 
   constructor() {
     this.container = document.querySelector('.side-panel');
-    this.sliders = [];
   }
 
-  public draw(settings: ISettings): void {
+  public draw(settings: ISettings, controls: IControls): void {
     if (this.container) this.container.innerHTML = '';
 
     // draw filters
@@ -23,7 +21,6 @@ class Filter {
       filterElement.id = `${filter}`;
       filterElement.title = `${filter}`;
       filterElement.dataset.option = `select ${filter}`;
-      this.container?.appendChild(filterElement);
 
       const filterName = filter as filteringField;
       for (const filterValue of settings.filter[filterName].types) {
@@ -33,6 +30,8 @@ class Filter {
         option.innerText = filterValue;
         filterElement.appendChild(option);
       }
+      controls.filter[filterName] = filterElement;
+      this.container?.appendChild(filterElement);
     }
 
     // draw ranges
@@ -69,21 +68,16 @@ class Filter {
         }),
       });
 
-      this?.sliders?.push({ sliderId: range, sliderInstance: slider });
+      controls.range[rangeName] = slider;
       rangeContainer?.appendChild(rangeElement);
       this.container?.appendChild(rangeContainer);
     }
 
     // draw reset button
-    const filterBtn: HTMLButtonElement = document.createElement('button');
-    filterBtn.classList.add('filter-btn');
-    filterBtn.innerText = 'apply filters';
-    this.container?.appendChild(filterBtn);
-
-    // draw reset button
     const resetBtn: HTMLButtonElement = document.createElement('button');
     resetBtn.classList.add('reset-btn');
     resetBtn.innerText = 'reset filters';
+    controls.resetBtn = resetBtn;
     this.container?.appendChild(resetBtn);
   }
 }
