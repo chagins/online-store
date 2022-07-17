@@ -18,5 +18,24 @@
     border: $control-border_black;
     cursor: pointer;
     box-shadow: 1px 1px 4px #00000040;
+
+    &.hide {
+      display: none;
+    }
+  }
+
+  .homeLink {
+    display: none;
+    font-size: 1.3rem;
+    padding: 0.5rem 0;
+    color: $color_main-black;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &.hide {
+      display: block;
+    }
   }
 }

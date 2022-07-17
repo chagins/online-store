@@ -3,6 +3,7 @@ import { IProduct } from '../../types/types';
 
 class Products {
   private container: HTMLDivElement | null;
+  private productCards: HTMLDivElement[];
 
   constructor() {
     const parentContainer = document.querySelector('.content');
@@ -10,10 +11,15 @@ class Products {
     contentProducts.classList.add('content-products');
     parentContainer?.appendChild(contentProducts);
     this.container = contentProducts;
+    this.productCards = [];
   }
 
   private clearContent(): void {
     if (this.container) this.container.innerHTML = '';
+  }
+
+  public getProductCards(): HTMLDivElement[] {
+    return this.productCards;
   }
 
   public draw(products: IProduct[]): void {
@@ -87,7 +93,9 @@ class Products {
       cardProps.appendChild(productDetails);
       productCard.appendChild(cardProps);
 
+      productCard.id = `${item.id}`;
       this.container?.appendChild(productCard);
+      this.productCards.push(productCard);
     });
   }
 }

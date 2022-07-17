@@ -33,9 +33,16 @@ class Header {
     }
 
     inputSort.value = `${settings.sort.fieldCurrent}:${settings.sort.orderCurrent}`;
-
     this.container?.appendChild(inputSort);
     controls.sort = inputSort;
+
+    const homeLink: HTMLAnchorElement = document.createElement('a');
+    homeLink.href = '#';
+    homeLink.innerText = '🏠HOME PAGE';
+    homeLink.classList.add('homeLink');
+    homeLink.title = 'Go to home app page';
+    controls.homeLink = homeLink;
+    this.container?.appendChild(homeLink);
   }
 }
 

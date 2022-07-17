@@ -108,11 +108,13 @@ export interface IControls {
     rating: API | null;
   };
   resetBtn: HTMLButtonElement | null;
+  homeLink: HTMLAnchorElement | null;
 }
 
 export const getKeyValue =
   <T extends object, U extends keyof T>(obj: T): ((key: U) => T[U]) =>
-    (key: U): T[U] => obj[key];
+    (key: U): T[U] =>
+      obj[key];
 
 export type callbackFun<T> = (data: T) => void;
 

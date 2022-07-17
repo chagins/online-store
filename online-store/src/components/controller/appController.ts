@@ -105,6 +105,33 @@ class AppController {
         restartCallback();
       });
     }
+
+    if (controls.homeLink) {
+      controls.homeLink.addEventListener('click', (): void => {
+        restartCallback();
+      });
+    }
+  }
+
+  initCards(cards: HTMLDivElement[], productCardDrawCallback: callbackFun<IProduct>): void {
+    cards.forEach((card): void => {
+      card.addEventListener('click', (e: Event): void => {
+        const target = e.target as HTMLElement;
+        const currentTarget = e.currentTarget as HTMLDivElement;
+        if (target.tagName !== 'BUTTON') {
+          const findedProduct = this.getProduct(+currentTarget.id);
+          if (findedProduct) productCardDrawCallback(findedProduct);
+        }
+      });
+    });
+  }
+
+  public getProduct(productID: number): IProduct | null {
+    const findedProduct = this.products.bikes.find((product): boolean => {
+      return product.id === productID;
+    });
+
+    return findedProduct ? findedProduct : null;
   }
 
   public getProducts(): IProduct[] {

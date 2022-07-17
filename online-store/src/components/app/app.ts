@@ -14,13 +14,15 @@ class App {
 
   public start(): void {
     this.appView.drawControls(this.controller.getSettings());
+    this.appView.drawProducts(this.controller.getProducts());
     this.controller.initControls(
       this.appView.getControls(),
       (data: IProduct[]): void => this.appView.drawProducts(data),
-      // (data: ISettings): void => this.appView.drawControls(data),
       (): void => this.start()
     );
-    this.appView.drawProducts(this.controller.getProducts());
+    this.controller.initCards(this.appView.getProductCards(), (data: IProduct): void =>
+      this.appView.drawProductCard(data)
+    );
   }
 }
 

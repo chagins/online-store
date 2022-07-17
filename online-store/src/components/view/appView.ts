@@ -2,15 +2,18 @@ import Products from './products/products';
 import Filter from './filter/filter';
 import Header from './header/header';
 import { IControls, IProduct, ISettings } from '../types/types';
+import ProductCard from './productcard/productcard';
 
 class AppView {
   private products: Products;
+  private productCard: ProductCard;
   private filter: Filter;
   private header: Header;
   private controls: IControls;
 
   constructor() {
     this.products = new Products();
+    this.productCard = new ProductCard();
     this.filter = new Filter();
     this.header = new Header();
     this.controls = {
@@ -28,6 +31,7 @@ class AppView {
         rating: null,
       },
       resetBtn: null,
+      homeLink: null,
     };
   }
 
@@ -37,6 +41,17 @@ class AppView {
   }
 
   drawProducts(data: IProduct[]): void {
+    const sidePanel = document.querySelector('.side-panel') as HTMLDivElement;
+    if (sidePanel) sidePanel.classList.remove('hide');
+    const inputSort = document.querySelector('.input-sort') as HTMLSelectElement;
+    if (inputSort) inputSort.classList.remove('hide');
+    const homeLink = document.querySelector('.homeLink') as HTMLAnchorElement;
+    if (homeLink) homeLink.classList.remove('hide');
+    const contentProducts = document.querySelector('.content-products') as HTMLDivElement;
+    if (contentProducts) contentProducts.classList.remove('hide');
+    const contentProductCard = document.querySelector('.content-productcard') as HTMLDivElement;
+    if (contentProductCard) contentProductCard.innerHTML = '';
+
     this.products.draw(data);
   }
 
@@ -48,8 +63,25 @@ class AppView {
     this.filter.draw(settings, controls);
   }
 
+  drawProductCard(data: IProduct): void {
+    const sidePanel = document.querySelector('.side-panel') as HTMLDivElement;
+    if (sidePanel) sidePanel.classList.toggle('hide');
+    const inputSort = document.querySelector('.input-sort') as HTMLSelectElement;
+    if (inputSort) inputSort.classList.toggle('hide');
+    const homeLink = document.querySelector('.homeLink') as HTMLAnchorElement;
+    if (homeLink) homeLink.classList.toggle('hide');
+    const contentProducts = document.querySelector('.content-products') as HTMLDivElement;
+    if (contentProducts) contentProducts.classList.toggle('hide');
+
+    this.productCard.draw(data);
+  }
+
   getControls(): IControls {
     return this.controls;
+  }
+
+  getProductCards(): HTMLDivElement[] {
+    return this.products.getProductCards();
   }
 }
 
