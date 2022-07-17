@@ -10,9 +10,11 @@ import {
 class AppSettings implements IAppSettings {
   private appSettings: ISettings;
   private sourceSettings: IProducts;
+  private localStorageName: string;
 
   constructor(source: IProducts) {
     this.sourceSettings = source;
+    this.localStorageName = 'online-store-chagins';
     this.appSettings = {
       sort: {
         fieldTypes: ['product', 'year', 'rating', 'price'],
@@ -74,8 +76,20 @@ class AppSettings implements IAppSettings {
     };
   }
 
-  public getSettings(): ISettings {
-    return this.collectSettings().setDefaultSettings().appSettings;
+  public loadSettings(): ISettings {
+    return this.readStorageSettings().collectSettings().setDefaultSettings().appSettings;
+  }
+
+  public saveSettings(settings: ISettings): void {
+    localStorage.setItem(this.localStorageName, JSON.stringify(settings));
+  }
+
+  private readStorageSettings(): AppSettings {
+    if (localStorage.getItem(this.localStorageName)) {
+      const settings = localStorage.getItem(this.localStorageName) as string;
+      this.appSettings = JSON.parse(settings) as ISettings;
+    }
+    return this;
   }
 
   // parsing data source to collect available bike option values

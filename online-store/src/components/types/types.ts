@@ -112,13 +112,13 @@ export interface IControls {
 
 export const getKeyValue =
   <T extends object, U extends keyof T>(obj: T): ((key: U) => T[U]) =>
-    (key: U): T[U] =>
-      obj[key];
+    (key: U): T[U] => obj[key];
 
 export type callbackFun<T> = (data: T) => void;
 
 export interface IAppSettings {
-  getSettings(): ISettings;
+  loadSettings(): ISettings;
+  saveSettings(settings: ISettings): void;
 }
 
 export interface IAppSettingsConstructable {
