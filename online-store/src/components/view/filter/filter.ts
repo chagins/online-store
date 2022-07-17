@@ -21,6 +21,7 @@ class Filter {
       const filterElement: HTMLSelectElement = document.createElement('select');
       filterElement.classList.add('filter');
       filterElement.id = `${filter}`;
+      filterElement.title = `${filter}`;
       filterElement.dataset.option = `select ${filter}`;
       this.container?.appendChild(filterElement);
 
@@ -72,6 +73,12 @@ class Filter {
       rangeContainer?.appendChild(rangeElement);
       this.container?.appendChild(rangeContainer);
     }
+
+    // draw reset button
+    const filterBtn: HTMLButtonElement = document.createElement('button');
+    filterBtn.classList.add('filter-btn');
+    filterBtn.innerText = 'apply filters';
+    this.container?.appendChild(filterBtn);
 
     // draw reset button
     const resetBtn: HTMLButtonElement = document.createElement('button');

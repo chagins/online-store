@@ -4,130 +4,27 @@ import {
   ILoaderConstructable,
   ILoader,
   ISettings,
-  getKeyValue,
   filteringField,
   sortingField,
   rangingField,
+  IAppSettingsConstructable,
+  IAppSettings,
 } from '../types/types';
 import bikesJSON from '../../assets/json/bikes.json';
 
-const loadedSettings: ISettings = {
-  sort: {
-    fieldTypes: ['product', 'year', 'rating', 'price'],
-    fieldCurrent: 'product',
-    orderTypes: ['ascending', 'descending'],
-    orderCurrent: 'ascending',
-  },
-  filter: {
-    category: {
-      types: ['select category'],
-      current: null,
-    },
-    brand: {
-      types: ['select brand'],
-      current: null,
-    },
-    color: {
-      types: ['select color'],
-      current: null,
-    },
-    'frame size': {
-      types: ['select frame size'],
-      current: null,
-    },
-    'wheel size': {
-      types: ['select wheel size'],
-      current: null,
-    },
-  },
-  range: {
-    price: {
-      min: null,
-      max: null,
-      current: [null, null],
-      format: {
-        decimals: 2,
-        step: 1,
-      },
-    },
-    year: {
-      min: null,
-      max: null,
-      current: [null, null],
-      format: {
-        decimals: 0,
-        step: 1,
-      },
-    },
-    rating: {
-      min: null,
-      max: null,
-      current: [null, null],
-      format: {
-        decimals: 0,
-        step: 1,
-      },
-    },
-  },
-};
-
 class AppController {
   private loaderService: ILoader;
+  private settingService: IAppSettings;
 
-  constructor(loaderService: ILoaderConstructable) {
+  constructor(loaderService: ILoaderConstructable, settingService: IAppSettingsConstructable) {
     this.loaderService = new loaderService();
+    this.settingService = new settingService(bikesJSON);
   }
 
-  loadSettings(drawCallback: callbackFun<ISettings>): ISettings {
-    const appSettings = loadedSettings;
-    // parsing JSON to collect available bike options
-    const products = bikesJSON.bikes as IProduct[];
-    for (const product of products) {
-      for (const property in product) {
-        if (property in appSettings.filter) {
-          const propertyValue = property as filteringField;
-          const filterProperty = getKeyValue(appSettings.filter)(propertyValue);
-          if (!filterProperty.types.includes(product[propertyValue])) {
-            appSettings.filter[propertyValue].types.push(product[propertyValue]);
-          }
-        }
-        if (property in appSettings.range) {
-          const propertyValue = property as rangingField;
-          const rangeProperty = getKeyValue(appSettings.range)(propertyValue);
-          if (rangeProperty.min === null || product[propertyValue] < rangeProperty.min) {
-            appSettings.range[propertyValue].min = product[propertyValue];
-          }
-          if (rangeProperty.max === null || product[propertyValue] > rangeProperty.max) {
-            appSettings.range[propertyValue].max = product[propertyValue];
-          }
-        }
-      }
-    }
-
-    // setting default filtering values
-    for (const filterName in appSettings.filter) {
-      const filterNameValue = filterName as filteringField;
-      if (appSettings.filter[filterNameValue].current === null) {
-        appSettings.filter[filterNameValue].current = appSettings.filter[filterNameValue].types[0];
-      }
-    }
-
-    // setting default range values
-    for (const rangeName in appSettings.range) {
-      const rangeNameValue = rangeName as rangingField;
-      if (
-        appSettings.range[rangeNameValue].current[0] === null ||
-        appSettings.range[rangeNameValue].current[1] === null
-      ) {
-        appSettings.range[rangeNameValue].current[0] = appSettings.range[rangeNameValue]
-          .min as number;
-        appSettings.range[rangeNameValue].current[1] = appSettings.range[rangeNameValue]
-          .max as number;
-      }
-    }
-
-    drawCallback(appSettings);
-    return appSettings;
+  public getSettings(drawCallback: callbackFun<ISettings>): ISettings {
+    const settings = this.settingService.getSettings();
+    drawCallback(settings);
+    return settings;
   }
 
   public getProducts(drawCallback: callbackFun<IProduct[]>, settings: ISettings): void {

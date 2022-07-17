@@ -32,7 +32,9 @@ export type sortingField = 'product' | 'year' | 'rating' | 'price';
 export type sortingOrder = 'ascending' | 'descending';
 export type filteringField = 'category' | 'brand' | 'color' | 'frame size' | 'wheel size';
 export type rangingField = 'price' | 'year' | 'rating';
+
 export type sliderUI = { sliderId?: string; sliderInstance?: API };
+
 export interface ISettings {
   sort: {
     fieldTypes: ['product', 'year', 'rating', 'price'];
@@ -94,8 +96,8 @@ export interface ISettings {
 }
 
 export const getKeyValue =
-  <T extends object, U extends keyof T>(obj: T) =>
-    (key: U) =>
+  <T extends object, U extends keyof T>(obj: T): ((key: U) => T[U]) =>
+    (key: U): T[U] =>
       obj[key];
 
 export type callbackFun<T> = (data: T) => void;
@@ -106,4 +108,12 @@ export interface ILoader {
 
 export interface ILoaderConstructable {
   new (): ILoader;
+}
+
+export interface IAppSettings {
+  getSettings(): ISettings;
+}
+
+export interface IAppSettingsConstructable {
+  new (source: IProducts): IAppSettings;
 }

@@ -1,6 +1,7 @@
 import AppController from '../controller/appController';
 import AppView from '../view/appView';
 import Loader from '../controller/loader';
+import AppSettings from '../controller/appSettings';
 import {
   IProduct,
   sortingField,
@@ -18,12 +19,17 @@ class App {
   static appSettings: ISettings;
 
   constructor() {
-    this.controller = new AppController(Loader);
+    this.controller = new AppController(Loader, AppSettings);
     this.appView = new AppView();
   }
 
   public start(): void {
-    App.appSettings = this.controller.loadSettings((data: ISettings): void => {
+    // App.appSettings = this.controller.collectSettings((data: ISettings): void => {
+    //   this.appView.drawFilter(data);
+    //   this.appView.drawHeader(data);
+    // });
+
+    App.appSettings = this.controller.getSettings((data: ISettings): void => {
       this.appView.drawFilter(data);
       this.appView.drawHeader(data);
     });
@@ -33,6 +39,12 @@ class App {
     }, App.appSettings);
 
     this.initControls();
+    const filterBtn = document.querySelector('.filter-btn');
+    if (filterBtn) {
+      filterBtn.addEventListener('click', (): void => {
+        console.log('click');
+      });
+    }
   }
 
   private initControls(): void {
