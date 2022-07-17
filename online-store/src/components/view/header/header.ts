@@ -43,6 +43,19 @@ class Header {
     homeLink.title = 'Go to home app page';
     controls.homeLink = homeLink;
     this.container?.appendChild(homeLink);
+
+    const productCart = document.createElement('div');
+    productCart.classList.add('product-cart');
+    const cartCount = document.createElement('p');
+    cartCount.classList.add('cart-count');
+    cartCount.innerText = '0';
+    productCart.appendChild(cartCount);
+    const cart = document.createElement('div');
+    cart.classList.add('cart');
+    productCart.appendChild(cart);
+    controls.productCart.cartCount = cartCount;
+    controls.productCart.cart = productCart;
+    this.container?.appendChild(productCart);
   }
 }
 

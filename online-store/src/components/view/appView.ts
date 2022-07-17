@@ -32,6 +32,11 @@ class AppView {
       },
       resetBtn: null,
       homeLink: null,
+      productCart: {
+        cartCount: null,
+        cart: null,
+        maxCartCount: 20,
+      },
     };
   }
 

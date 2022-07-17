@@ -27,6 +27,16 @@
       cursor: zoom-in;
     }
 
+    &.incart {
+      outline: $color_main-yellow solid 2px;
+      cursor: pointer;
+
+      .buy-btn {
+        color: $color_main-yellow;
+        cursor: default;
+      }
+    }
+
     .card-picture {
       margin: 0 auto;
       max-width: 30rem;

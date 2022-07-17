@@ -109,6 +109,11 @@ export interface IControls {
   };
   resetBtn: HTMLButtonElement | null;
   homeLink: HTMLAnchorElement | null;
+  productCart: {
+    cartCount: HTMLParagraphElement | null;
+    cart: HTMLDivElement | null;
+    maxCartCount: 20;
+  };
 }
 
 export const getKeyValue =

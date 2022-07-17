@@ -20,8 +20,10 @@ class App {
       (data: IProduct[]): void => this.appView.drawProducts(data),
       (): void => this.start()
     );
-    this.controller.initCards(this.appView.getProductCards(), (data: IProduct): void =>
-      this.appView.drawProductCard(data)
+    this.controller.initCards(
+      this.appView.getProductCards(),
+      (data: IProduct): void => this.appView.drawProductCard(data),
+      this.appView.getControls()
     );
   }
 }

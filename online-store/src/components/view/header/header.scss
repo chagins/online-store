@@ -38,4 +38,43 @@
       display: block;
     }
   }
+
+  .product-cart {
+    height: 100%;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+
+    .cart-count {
+      width: 90%;
+      text-align: center;
+      font-size: 1rem;
+      color: $color_main-black;
+      border-radius: 1rem;
+      background-color: $color_main-yellow;
+    }
+
+    .cart {
+      width: 3rem;
+      height: 2.8rem;
+      background: url('../../../assets/svg/cart.svg') center / cover no-repeat;
+    }
+
+    @keyframes cart-rotation {
+      0% {
+        transform: rotate(0deg);
+      }
+      25% {
+        transform: rotate(30deg);
+      }
+      50% {
+        transform: rotate(-30deg);
+      }
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+  }
 }

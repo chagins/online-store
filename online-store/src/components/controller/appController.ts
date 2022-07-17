@@ -113,14 +113,47 @@ class AppController {
     }
   }
 
-  initCards(cards: HTMLDivElement[], productCardDrawCallback: callbackFun<IProduct>): void {
+  initCards(
+    cards: HTMLDivElement[],
+    productCardDrawCallback: callbackFun<IProduct>,
+    controls: IControls
+  ): void {
     cards.forEach((card): void => {
       card.addEventListener('click', (e: Event): void => {
         const target = e.target as HTMLElement;
-        const currentTarget = e.currentTarget as HTMLDivElement;
+        const currentCard = e.currentTarget as HTMLDivElement;
         if (target.tagName !== 'BUTTON') {
-          const findedProduct = this.getProduct(+currentTarget.id);
+          const findedProduct = this.getProduct(+currentCard.id);
           if (findedProduct) productCardDrawCallback(findedProduct);
+        }
+        if (target.tagName === 'BUTTON') {
+          if (currentCard.dataset.incart === 'yes') return;
+          const button = target as HTMLButtonElement;
+          const findedProduct = this.getProduct(+currentCard.id);
+          button.innerText = 'IN CART';
+          currentCard.dataset.incart = 'yes';
+          currentCard.classList.add('incart');
+          (controls.productCart.cart as HTMLDivElement).animate(
+            [
+              { transform: 'rotate(0deg)' },
+              { transform: 'rotate(20deg)' },
+              { transform: 'rotate(-20deg)' },
+              { transform: 'rotate(0deg)' },
+            ],
+            {
+              duration: 500,
+            }
+          );
+          let currentProductsInCart = Number.parseInt(
+            controls.productCart.cartCount?.innerText as string
+          );
+          const maxProductsInCart = controls.productCart.maxCartCount;
+          if (currentProductsInCart < maxProductsInCart) {
+            currentProductsInCart += 1;
+            (
+              controls.productCart.cartCount as HTMLParagraphElement
+            ).innerText = `${currentProductsInCart}`;
+          }
         }
       });
     });
