@@ -137,28 +137,52 @@ class AppController {
     controls: IControls;
   }): void {
     cards.forEach((card): void => {
+      if (card.dataset.event === 'yes') return;
+      card.dataset.event = 'yes';
       card.addEventListener('click', (e: Event): void => {
         const target = e.target as HTMLElement;
         const currentCard = e.currentTarget as HTMLDivElement;
+        const curretCardID = Number.parseInt(currentCard.id);
         if (!target.classList.contains('buy-btn')) {
           if (currentCard.parentElement?.classList.contains('content-productcard')) return;
-          const findedProduct = this.getProduct(+currentCard.id);
+          const findedProduct = this.getProduct(curretCardID);
           if (findedProduct) productCardDrawCallback(findedProduct);
         }
         if (target.classList.contains('buy-btn')) {
-          if (AppController.settings.cart.productid.includes(+currentCard.id)) return;
-          if (
-            AppController.settings.cart.productid.length === AppController.settings.cart.maxproducts
-          ) {
-            alert('Извините, все слоты корзины заполнены');
-            return;
+          const buyBtnControl = target as HTMLButtonElement;
+          const cartLabelControl = controls.productCart.cartCount as HTMLParagraphElement;
+
+          // if card in cart then pull it
+          if (buyBtnControl.dataset.incart === 'yes') {
+            buyBtnControl.dataset.incart = 'no';
+            buyBtnControl.innerText = 'BUY';
+            currentCard.dataset.incart = 'no';
+            currentCard.classList.remove('incart');
+            const cardIndexInSettings = AppController.settings.cart.productid.indexOf(curretCardID);
+            if (cardIndexInSettings !== -1) {
+              AppController.settings.cart.productid.splice(cardIndexInSettings, 1);
+            }
+            const countProductsInCart = AppController.settings.cart.productid.length;
+            cartLabelControl.innerText = `${countProductsInCart}`;
+
+            // if card not in cart then push it
+          } else {
+            let countProductsInCart = AppController.settings.cart.productid.length;
+            const maxCountProductsInCart = AppController.settings.cart.maxproducts;
+            if (countProductsInCart === maxCountProductsInCart) {
+              alert('Извините, все слоты корзины заполнены');
+              return;
+            }
+            buyBtnControl.dataset.incart = 'yes';
+            buyBtnControl.innerText = 'IN CART';
+            currentCard.dataset.incart = 'yes';
+            currentCard.classList.add('incart');
+            countProductsInCart += 1;
+            cartLabelControl.innerText = `${countProductsInCart}`;
+            AppController.settings.cart.productid.push(curretCardID);
           }
-          if (currentCard.dataset.incart === 'yes') return;
-          const buyBtn = target as HTMLButtonElement;
-          // const findedProduct = this.getProduct(+currentCard.id);
-          buyBtn.innerText = 'IN CART';
-          currentCard.dataset.incart = 'yes';
-          currentCard.classList.add('incart');
+
+          // cart animation
           (controls.productCart.cart as HTMLDivElement).animate(
             [
               { transform: 'rotate(0deg)' },
@@ -170,17 +194,7 @@ class AppController {
               duration: 500,
             }
           );
-          let currentProductsInCart = Number.parseInt(
-            controls.productCart.cartCount?.innerText as string
-          );
-          const maxProducts = AppController.settings.cart.maxproducts;
-          if (currentProductsInCart < maxProducts) {
-            currentProductsInCart += 1;
-            (
-              controls.productCart.cartCount as HTMLParagraphElement
-            ).innerText = `${currentProductsInCart}`;
-          }
-          AppController.settings.cart.productid.push(+currentCard.id);
+
           this.setSettings();
         }
       });

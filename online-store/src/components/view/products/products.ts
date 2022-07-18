@@ -139,9 +139,10 @@ class Products {
         productCard.id = `${product.id}`;
 
         if (AppController.getSettings().cart.productid.includes(product.id)) {
+          buyBtn.dataset.incart = 'yes';
+          buyBtn.innerText = 'IN CART';
           productCard.dataset.incart = 'yes';
           productCard.classList.add('incart');
-          buyBtn.innerText = 'IN CART';
         }
         this.container?.appendChild(productCard);
         Products.productCards.push(productCard);

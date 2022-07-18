@@ -1,6 +1,7 @@
 import { IProduct } from '../../types/types';
 import Products from '../products/products';
 import './productcard.scss';
+import AppController from '../../controller/appController';
 
 class ProductCard {
   private container: HTMLDivElement | null;
@@ -120,8 +121,15 @@ class ProductCard {
         productParticular.appendChild(part);
       });
       cardProps.appendChild(productParticular);
-
       productCard.id = `${product.id}`;
+
+      if (AppController.getSettings().cart.productid.includes(product.id)) {
+        buyBtn.dataset.incart = 'yes';
+        buyBtn.innerText = 'IN CART';
+        productCard.dataset.incart = 'yes';
+        productCard.classList.add('incart');
+      }
+
       this.container?.appendChild(productCard);
     }
   }
