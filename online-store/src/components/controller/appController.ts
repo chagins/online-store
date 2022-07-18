@@ -136,6 +136,13 @@ class AppController {
         restartCallback();
       });
     }
+
+    if (controls.headerSearch) {
+      controls.headerSearch.addEventListener('search', (): void => {
+        AppController.settings.searchstring = controls?.headerSearch?.value as string;
+        productsDrawCallback(this.getProducts());
+      });
+    }
   }
 
   initCards({
@@ -217,7 +224,17 @@ class AppController {
     let products = this.products.bikes;
     products = this.filterByProperty(AppController.settings, products);
     products = this.sortByProperty(AppController.settings, products);
+    products = this.searchByProperty(AppController.settings, products);
     return products;
+  }
+
+  private searchByProperty(settings: ISettings, data: IProduct[]): IProduct[] {
+    const searchString = settings.searchstring?.toLowerCase();
+    if (!searchString) return data;
+    return data.filter((product): boolean => {
+      const productName: string = product.product;
+      return productName.toLowerCase().includes(searchString);
+    });
   }
 
   private sortByProperty(settings: ISettings, data: IProduct[]): IProduct[] {

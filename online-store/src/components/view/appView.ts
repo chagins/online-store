@@ -38,6 +38,7 @@ class AppView {
         cart: null,
         maxCartCount: 20,
       },
+      headerSearch: document.querySelector('.header-search'),
     };
   }
 

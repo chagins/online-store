@@ -95,6 +95,7 @@ export interface ISettings {
     productid: number[];
     maxproducts: number;
   };
+  searchstring: string | null;
 }
 
 export interface IControls {
@@ -119,6 +120,7 @@ export interface IControls {
     cart: HTMLDivElement | null;
     maxCartCount: 20;
   };
+  headerSearch: HTMLInputElement | null;
 }
 
 export const getKeyValue =

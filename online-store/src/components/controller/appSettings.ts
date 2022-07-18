@@ -78,6 +78,7 @@ class AppSettings implements IAppSettings {
         productid: [] as number[],
         maxproducts: 20,
       },
+      searchstring: null,
     };
     this.appSettings = JSON.parse(JSON.stringify(this.defaultSettings)) as ISettings;
   }
