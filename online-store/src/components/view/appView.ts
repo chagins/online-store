@@ -31,6 +31,7 @@ class AppView {
         rating: null,
       },
       resetBtn: null,
+      clearBtn: null,
       homeLink: null,
       productCart: {
         cartCount: null,

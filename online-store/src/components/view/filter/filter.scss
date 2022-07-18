@@ -79,4 +79,24 @@
       box-shadow: none;
     }
   }
+
+  .clear-btn {
+    margin-top: 1rem;
+    width: 100%;
+    height: $size_input-height;
+    font-size: 1rem;
+    background-color: $color_main-white;
+    color: $color_main-black;
+    border-radius: 1rem;
+    box-shadow: 0px 4px 4px #00000040;
+
+    &:hover {
+      color: $color_title-orange;
+    }
+
+    &:active {
+      transform: translateY(2px);
+      box-shadow: none;
+    }
+  }
 }

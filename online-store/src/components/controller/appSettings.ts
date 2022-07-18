@@ -8,6 +8,7 @@ import {
 } from '../types/types';
 
 class AppSettings implements IAppSettings {
+  private defaultSettings: ISettings;
   private appSettings: ISettings;
   private sourceSettings: IProducts;
   private localStorageName: string;
@@ -15,7 +16,7 @@ class AppSettings implements IAppSettings {
   constructor(source: IProducts) {
     this.sourceSettings = source;
     this.localStorageName = 'online-store-chagins';
-    this.appSettings = {
+    this.defaultSettings = {
       sort: {
         fieldTypes: ['product', 'year', 'rating', 'price'],
         fieldCurrent: 'product',
@@ -78,6 +79,7 @@ class AppSettings implements IAppSettings {
         maxproducts: 20,
       },
     };
+    this.appSettings = JSON.parse(JSON.stringify(this.defaultSettings)) as ISettings;
   }
 
   public loadSettings(): ISettings {
@@ -86,6 +88,12 @@ class AppSettings implements IAppSettings {
 
   public saveSettings(settings: ISettings): void {
     localStorage.setItem(this.localStorageName, JSON.stringify(settings));
+  }
+
+  public clearSettings(): ISettings {
+    localStorage.clear();
+    this.appSettings = JSON.parse(JSON.stringify(this.defaultSettings)) as ISettings;
+    return this.loadSettings();
   }
 
   private readStorageSettings(): AppSettings {

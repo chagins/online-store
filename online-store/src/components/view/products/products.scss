@@ -15,9 +15,11 @@
 
   .product-card {
     padding: 0.625rem;
-    max-width: 31.25rem;
-    max-height: 27.25rem;
-    gap: 1rem;
+    width: 31.25rem;
+    height: 27rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     color: $color_main-black;
     box-shadow: 1px 1px 4px #00000040;
     border-radius: 1rem;
@@ -37,8 +39,8 @@
 
     .card-picture {
       margin: 0 auto;
-      max-width: 95%;
-      max-height: 95%;
+      max-width: 26rem;
+      max-height: 16.25rem;
       display: block;
     }
 

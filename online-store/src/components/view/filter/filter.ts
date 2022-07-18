@@ -79,6 +79,13 @@ class Filter {
     resetBtn.innerText = 'reset filters';
     controls.resetBtn = resetBtn;
     this.container?.appendChild(resetBtn);
+
+    // draw clear button
+    const clearBtn: HTMLButtonElement = document.createElement('button');
+    clearBtn.classList.add('clear-btn');
+    clearBtn.innerText = 'clear settings';
+    controls.clearBtn = clearBtn;
+    this.container?.appendChild(clearBtn);
   }
 }
 

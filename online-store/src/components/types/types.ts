@@ -112,6 +112,7 @@ export interface IControls {
     rating: API | null;
   };
   resetBtn: HTMLButtonElement | null;
+  clearBtn: HTMLButtonElement | null;
   homeLink: HTMLAnchorElement | null;
   productCart: {
     cartCount: HTMLParagraphElement | null;
@@ -130,6 +131,7 @@ export type callbackFun<T> = (data: T) => void;
 export interface IAppSettings {
   loadSettings(): ISettings;
   saveSettings(settings: ISettings): void;
+  clearSettings(): ISettings;
 }
 
 export interface IAppSettingsConstructable {

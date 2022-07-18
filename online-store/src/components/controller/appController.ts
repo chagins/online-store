@@ -33,6 +33,10 @@ class AppController {
     this.settingService.saveSettings(AppController.settings);
   }
 
+  public clearSettings(): void {
+    AppController.settings = this.settingService.clearSettings();
+  }
+
   public initControls({
     controls,
     productsDrawCallback,
@@ -125,6 +129,13 @@ class AppController {
         restartCallback();
       });
     }
+
+    if (controls.clearBtn) {
+      controls.clearBtn.addEventListener('click', (): void => {
+        this.clearSettings();
+        restartCallback();
+      });
+    }
   }
 
   initCards({
@@ -151,20 +162,15 @@ class AppController {
         if (target.classList.contains('buy-btn')) {
           const buyBtnControl = target as HTMLButtonElement;
           const cartLabelControl = controls.productCart.cartCount as HTMLParagraphElement;
+          const cardIndexInSettings = AppController.settings.cart.productid.indexOf(curretCardID);
 
           // if card in cart then pull it
-          if (buyBtnControl.dataset.incart === 'yes') {
-            buyBtnControl.dataset.incart = 'no';
-            buyBtnControl.innerText = 'BUY';
-            currentCard.dataset.incart = 'no';
-            currentCard.classList.remove('incart');
-            const cardIndexInSettings = AppController.settings.cart.productid.indexOf(curretCardID);
-            if (cardIndexInSettings !== -1) {
-              AppController.settings.cart.productid.splice(cardIndexInSettings, 1);
-            }
+          if (cardIndexInSettings !== -1) {
+            AppController.settings.cart.productid.splice(cardIndexInSettings, 1);
             const countProductsInCart = AppController.settings.cart.productid.length;
             cartLabelControl.innerText = `${countProductsInCart}`;
-
+            buyBtnControl.innerText = 'BUY';
+            currentCard.classList.remove('incart');
             // if card not in cart then push it
           } else {
             let countProductsInCart = AppController.settings.cart.productid.length;
@@ -173,13 +179,11 @@ class AppController {
               alert('Извините, все слоты корзины заполнены');
               return;
             }
-            buyBtnControl.dataset.incart = 'yes';
-            buyBtnControl.innerText = 'IN CART';
-            currentCard.dataset.incart = 'yes';
-            currentCard.classList.add('incart');
             countProductsInCart += 1;
-            cartLabelControl.innerText = `${countProductsInCart}`;
             AppController.settings.cart.productid.push(curretCardID);
+            cartLabelControl.innerText = `${countProductsInCart}`;
+            buyBtnControl.innerText = 'IN CART';
+            currentCard.classList.add('incart');
           }
 
           // cart animation

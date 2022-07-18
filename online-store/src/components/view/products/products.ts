@@ -23,6 +23,22 @@ class Products {
     return Products.productCards;
   }
 
+  private updateProductCardStatus(): void {
+    Products.productCards.forEach((card): void => {
+      const cardIndexInSettings = AppController.getSettings().cart.productid.indexOf(
+        Number.parseInt(card.id)
+      );
+      const buyBtn = card.querySelector('.buy-btn') as HTMLButtonElement;
+      if (cardIndexInSettings === -1) {
+        if (buyBtn) buyBtn.innerText = 'BUY';
+        card.classList.remove('incart');
+      } else {
+        if (buyBtn) buyBtn.innerText = 'IN CART';
+        card.classList.add('incart');
+      }
+    });
+  }
+
   public draw(products: IProduct[]): void {
     this.clearContent();
     const maxRating = 5;
@@ -135,19 +151,13 @@ class Products {
           productParticular.appendChild(part);
         });
         cardProps.appendChild(productParticular);
-
         productCard.id = `${product.id}`;
-
-        if (AppController.getSettings().cart.productid.includes(product.id)) {
-          buyBtn.dataset.incart = 'yes';
-          buyBtn.innerText = 'IN CART';
-          productCard.dataset.incart = 'yes';
-          productCard.classList.add('incart');
-        }
         this.container?.appendChild(productCard);
         Products.productCards.push(productCard);
       }
     });
+
+    this.updateProductCardStatus();
   }
 }
 
