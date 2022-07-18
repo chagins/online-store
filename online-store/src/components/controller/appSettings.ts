@@ -73,6 +73,10 @@ class AppSettings implements IAppSettings {
           },
         },
       },
+      cart: {
+        productid: [] as number[],
+        maxproducts: 20,
+      },
     };
   }
 
@@ -142,7 +146,6 @@ class AppSettings implements IAppSettings {
           .max as number;
       }
     }
-
     return this;
   }
 }

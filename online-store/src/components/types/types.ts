@@ -91,6 +91,10 @@ export interface ISettings {
       };
     };
   };
+  cart: {
+    productid: number[];
+    maxproducts: number;
+  };
 }
 
 export interface IControls {

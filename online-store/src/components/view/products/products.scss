@@ -15,8 +15,8 @@
 
   .product-card {
     padding: 0.625rem;
-    width: 31.25rem;
-    height: 27.25rem;
+    max-width: 31.25rem;
+    max-height: 27.25rem;
     gap: 1rem;
     color: $color_main-black;
     box-shadow: 1px 1px 4px #00000040;
@@ -29,7 +29,6 @@
 
     &.incart {
       outline: $color_main-yellow solid 2px;
-      cursor: pointer;
 
       .buy-btn {
         color: $color_main-yellow;
@@ -39,8 +38,8 @@
 
     .card-picture {
       margin: 0 auto;
-      max-width: 30rem;
-      max-height: 17.188rem;
+      max-width: 95%;
+      max-height: 95%;
       display: block;
     }
 
@@ -115,6 +114,16 @@
       &:active {
         transform: translateY(2px);
         box-shadow: none;
+      }
+    }
+
+    .product-particular {
+      display: none;
+      margin-top: 1rem;
+      font-size: 1.25rem;
+
+      .particular:nth-child(odd) {
+        background: #ccc;
       }
     }
   }

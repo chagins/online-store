@@ -46,17 +46,6 @@ class AppView {
   }
 
   drawProducts(data: IProduct[]): void {
-    const sidePanel = document.querySelector('.side-panel') as HTMLDivElement;
-    if (sidePanel) sidePanel.classList.remove('hide');
-    const inputSort = document.querySelector('.input-sort') as HTMLSelectElement;
-    if (inputSort) inputSort.classList.remove('hide');
-    const homeLink = document.querySelector('.homeLink') as HTMLAnchorElement;
-    if (homeLink) homeLink.classList.remove('hide');
-    const contentProducts = document.querySelector('.content-products') as HTMLDivElement;
-    if (contentProducts) contentProducts.classList.remove('hide');
-    const contentProductCard = document.querySelector('.content-productcard') as HTMLDivElement;
-    if (contentProductCard) contentProductCard.innerHTML = '';
-
     this.products.draw(data);
   }
 

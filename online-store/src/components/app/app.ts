@@ -13,18 +13,18 @@ class App {
   }
 
   public start(): void {
-    this.appView.drawControls(this.controller.getSettings());
+    this.appView.drawControls(AppController.getSettings());
     this.appView.drawProducts(this.controller.getProducts());
-    this.controller.initControls(
-      this.appView.getControls(),
-      (data: IProduct[]): void => this.appView.drawProducts(data),
-      (): void => this.start()
-    );
-    this.controller.initCards(
-      this.appView.getProductCards(),
-      (data: IProduct): void => this.appView.drawProductCard(data),
-      this.appView.getControls()
-    );
+    this.controller.initControls({
+      controls: this.appView.getControls(),
+      productsDrawCallback: (data: IProduct[]): void => this.appView.drawProducts(data),
+      restartCallback: (): void => this.start(),
+    });
+    this.controller.initCards({
+      cards: this.appView.getProductCards(),
+      productCardDrawCallback: (data: IProduct): void => this.appView.drawProductCard(data),
+      controls: this.appView.getControls(),
+    });
   }
 }
 

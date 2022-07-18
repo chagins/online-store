@@ -17,35 +17,39 @@ import { API } from 'nouislider';
 class AppController {
   private settingService: IAppSettings;
   private readonly products: IProducts;
-  private settings: ISettings;
+  private static settings: ISettings;
 
   constructor(settingService: IAppSettingsConstructable) {
     this.settingService = new settingService(bikesJSON);
     this.products = bikesJSON as IProducts;
-    this.settings = this.settingService.loadSettings();
+    AppController.settings = this.settingService.loadSettings();
   }
 
-  public getSettings(): ISettings {
-    return this.settings;
+  public static getSettings(): ISettings {
+    return AppController.settings;
   }
 
   public setSettings(): void {
-    this.settingService.saveSettings(this.settings);
+    this.settingService.saveSettings(AppController.settings);
   }
 
-  public initControls(
-    controls: IControls,
-    productsDrawCallback: callbackFun<IProduct[]>,
-    restartCallback: callbackFun<void>
-  ): void {
+  public initControls({
+    controls,
+    productsDrawCallback,
+    restartCallback,
+  }: {
+    controls: IControls;
+    productsDrawCallback: callbackFun<IProduct[]>;
+    restartCallback: callbackFun<void>;
+  }): void {
     if (controls.sort) {
-      controls.sort.value = `${this.settings.sort.fieldCurrent}:${this.settings.sort.orderCurrent}`;
+      controls.sort.value = `${AppController.settings.sort.fieldCurrent}:${AppController.settings.sort.orderCurrent}`;
       controls.sort.addEventListener('change', (e: Event): void => {
         const target = e?.target as HTMLSelectElement;
         const sortFieldValue = target.value.split(':')[0] as sortingField;
         const sortOrderValue = target.value.split(':')[1] as sortingOrder;
-        this.settings.sort.fieldCurrent = sortFieldValue;
-        this.settings.sort.orderCurrent = sortOrderValue;
+        AppController.settings.sort.fieldCurrent = sortFieldValue;
+        AppController.settings.sort.orderCurrent = sortOrderValue;
         this.setSettings();
         productsDrawCallback(this.getProducts());
       });
@@ -56,15 +60,15 @@ class AppController {
         const filterElement = filterName as filteringField;
         // set controls state from settings
         (controls?.filter[filterElement] as HTMLSelectElement).value =
-          this.settings.filter[filterElement].current ?? '';
+          AppController.settings.filter[filterElement].current ?? '';
         (controls?.filter[filterElement] as HTMLSelectElement).dataset.option =
-          this.settings.filter[filterElement].current ?? '';
+          AppController.settings.filter[filterElement].current ?? '';
         // set control events
         controls.filter[filterElement]?.addEventListener('change', (e: Event): void => {
           const targetFilterElement = e?.target as HTMLSelectElement;
           targetFilterElement.dataset.option = targetFilterElement.value;
           const filterType = targetFilterElement.id as filteringField;
-          this.settings.filter[filterType].current = targetFilterElement.value;
+          AppController.settings.filter[filterType].current = targetFilterElement.value;
           this.setSettings();
           productsDrawCallback(this.getProducts());
         });
@@ -75,13 +79,13 @@ class AppController {
       for (const rangeName in controls.range) {
         const rangeInstance = rangeName as rangingField;
         // set controls state from settings
-        const values = this.settings.range[rangeInstance].current as number[];
+        const values = AppController.settings.range[rangeInstance].current as number[];
         (controls?.range[rangeInstance] as API).set(values);
         // set control events
         controls.range[rangeInstance]?.on('change', (values): void => {
           const params = values as string[];
           const [currentMin, currentMax] = params.map((item): number => Number.parseFloat(item));
-          this.settings.range[rangeInstance].current = [currentMin, currentMax];
+          AppController.settings.range[rangeInstance].current = [currentMin, currentMax];
           this.setSettings();
           productsDrawCallback(this.getProducts());
         });
@@ -90,16 +94,16 @@ class AppController {
 
     if (controls.resetBtn) {
       controls.resetBtn.addEventListener('click', (): void => {
-        for (const property in this.settings.filter) {
+        for (const property in AppController.settings.filter) {
           const propertyValue = property as filteringField;
-          this.settings.filter[propertyValue].current =
-            this.settings.filter[propertyValue].types[0];
+          AppController.settings.filter[propertyValue].current =
+            AppController.settings.filter[propertyValue].types[0];
         }
-        for (const property in this.settings.range) {
+        for (const property in AppController.settings.range) {
           const propertyValue = property as rangingField;
-          const min = this.settings.range[propertyValue].min;
-          const max = this.settings.range[propertyValue].max;
-          this.settings.range[propertyValue].current = [min, max];
+          const min = AppController.settings.range[propertyValue].min;
+          const max = AppController.settings.range[propertyValue].max;
+          AppController.settings.range[propertyValue].current = [min, max];
         }
         this.setSettings();
         restartCallback();
@@ -108,29 +112,51 @@ class AppController {
 
     if (controls.homeLink) {
       controls.homeLink.addEventListener('click', (): void => {
+        const sidePanel = document.querySelector('.side-panel') as HTMLDivElement;
+        if (sidePanel) sidePanel.classList.remove('hide');
+        const inputSort = document.querySelector('.input-sort') as HTMLSelectElement;
+        if (inputSort) inputSort.classList.remove('hide');
+        const homeLink = document.querySelector('.homeLink') as HTMLAnchorElement;
+        if (homeLink) homeLink.classList.remove('hide');
+        const contentProducts = document.querySelector('.content-products') as HTMLDivElement;
+        if (contentProducts) contentProducts.classList.remove('hide');
+        const contentProductCard = document.querySelector('.content-productcard') as HTMLDivElement;
+        if (contentProductCard) contentProductCard.innerHTML = '';
         restartCallback();
       });
     }
   }
 
-  initCards(
-    cards: HTMLDivElement[],
-    productCardDrawCallback: callbackFun<IProduct>,
-    controls: IControls
-  ): void {
+  initCards({
+    cards,
+    productCardDrawCallback,
+    controls,
+  }: {
+    cards: HTMLDivElement[];
+    productCardDrawCallback: callbackFun<IProduct>;
+    controls: IControls;
+  }): void {
     cards.forEach((card): void => {
       card.addEventListener('click', (e: Event): void => {
         const target = e.target as HTMLElement;
         const currentCard = e.currentTarget as HTMLDivElement;
-        if (target.tagName !== 'BUTTON') {
+        if (!target.classList.contains('buy-btn')) {
+          if (currentCard.parentElement?.classList.contains('content-productcard')) return;
           const findedProduct = this.getProduct(+currentCard.id);
           if (findedProduct) productCardDrawCallback(findedProduct);
         }
-        if (target.tagName === 'BUTTON') {
+        if (target.classList.contains('buy-btn')) {
+          if (AppController.settings.cart.productid.includes(+currentCard.id)) return;
+          if (
+            AppController.settings.cart.productid.length === AppController.settings.cart.maxproducts
+          ) {
+            alert('Извините, все слоты корзины заполнены');
+            return;
+          }
           if (currentCard.dataset.incart === 'yes') return;
-          const button = target as HTMLButtonElement;
-          const findedProduct = this.getProduct(+currentCard.id);
-          button.innerText = 'IN CART';
+          const buyBtn = target as HTMLButtonElement;
+          // const findedProduct = this.getProduct(+currentCard.id);
+          buyBtn.innerText = 'IN CART';
           currentCard.dataset.incart = 'yes';
           currentCard.classList.add('incart');
           (controls.productCart.cart as HTMLDivElement).animate(
@@ -147,13 +173,15 @@ class AppController {
           let currentProductsInCart = Number.parseInt(
             controls.productCart.cartCount?.innerText as string
           );
-          const maxProductsInCart = controls.productCart.maxCartCount;
-          if (currentProductsInCart < maxProductsInCart) {
+          const maxProducts = AppController.settings.cart.maxproducts;
+          if (currentProductsInCart < maxProducts) {
             currentProductsInCart += 1;
             (
               controls.productCart.cartCount as HTMLParagraphElement
             ).innerText = `${currentProductsInCart}`;
           }
+          AppController.settings.cart.productid.push(+currentCard.id);
+          this.setSettings();
         }
       });
     });
@@ -169,8 +197,8 @@ class AppController {
 
   public getProducts(): IProduct[] {
     let products = this.products.bikes;
-    products = this.filterByProperty(this.settings, products);
-    products = this.sortByProperty(this.settings, products);
+    products = this.filterByProperty(AppController.settings, products);
+    products = this.sortByProperty(AppController.settings, products);
     return products;
   }
 

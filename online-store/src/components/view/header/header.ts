@@ -1,4 +1,5 @@
 import { IControls, ISettings } from '../../types/types';
+import AppController from '../../controller/appController';
 import './header.scss';
 
 class Header {
@@ -53,6 +54,11 @@ class Header {
     const cart = document.createElement('div');
     cart.classList.add('cart');
     productCart.appendChild(cart);
+
+    if (AppController.getSettings().cart.productid.length > 0) {
+      cartCount.innerText = `${AppController.getSettings().cart.productid.length}`;
+    }
+
     controls.productCart.cartCount = cartCount;
     controls.productCart.cart = productCart;
     this.container?.appendChild(productCart);
