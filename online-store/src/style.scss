@@ -1,6 +1,10 @@
 @import './styles/root';
 /* main page style */
 
+html {
+  scroll-behavior: smooth;
+}
+
 .body {
   padding: 0.8rem;
   min-height: 100%;

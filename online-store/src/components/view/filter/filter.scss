@@ -2,6 +2,7 @@
 @import 'nouislider/dist/nouislider.css';
 
 .side-panel {
+  position: relative;
   display: block;
   padding: 1rem;
   flex: 0 0 17rem;
@@ -100,6 +101,21 @@
     &:active {
       transform: translateY(2px);
       box-shadow: none;
+    }
+  }
+
+  .arrowup-lnk {
+    padding: 1rem;
+    top: 1rem;
+    position: sticky;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: url('../../../assets/svg/arrow-up.svg') center / cover no-repeat;
+    border-radius: 100%;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #dddddd;
     }
   }
 }

@@ -86,6 +86,13 @@ class Filter {
     clearBtn.innerText = 'clear settings';
     controls.clearBtn = clearBtn;
     this.container?.appendChild(clearBtn);
+
+    // draw arrow up button
+    const arrowUplnk: HTMLAnchorElement = document.createElement('a');
+    arrowUplnk.classList.add('arrowup-lnk');
+    arrowUplnk.title = 'Go up';
+    arrowUplnk.href = '#top';
+    this.container?.appendChild(arrowUplnk);
   }
 }
 
