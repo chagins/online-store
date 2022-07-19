@@ -1,18 +1,21 @@
 @import './styles/root';
 /* main page style */
+
 .body {
   padding: 0.8rem;
   min-height: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   font-family: 'Roboto';
   color: $color_main-white;
-  font-size: 0.7em;
+  font-size: 0.8vw;
 }
 
 .header {
   width: 100%;
+  min-height: 70px;
   flex: 0 0 9em;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -23,10 +26,23 @@
   border-radius: 1em;
 }
 
+.header-search {
+  justify-self: end;
+  width: 20em;
+  max-width: 300px;
+  height: 3em;
+  min-height: 30px;
+  padding: 0 0.8em;
+  font-size: 1.5em;
+  border-radius: 1em;
+}
+
 .header-logo {
   justify-self: start;
   width: 8.75em;
+  min-width: 70px;
   height: 6.313em;
+  min-height: 50px;
   background: url('./assets/svg/logo.svg') center / cover no-repeat;
 }
 
@@ -45,15 +61,14 @@
     #fff 0.437495px -4.98082px 0px, #fff 1.41831px -4.79462px 0px, #fff 2.34258px -4.41727px 0px,
     #fff 3.17346px -3.86382px 0px, #fff 3.87783px -3.15633px 0px, #fff 4.4276px -2.32301px 0px,
     #fff 4.80085px -1.39708px 0px, #fff 4.98271px -0.415447px 0px;
-}
 
-.header-search {
-  justify-self: end;
-  width: 18.75em;
-  height: 3.125em;
-  padding: 0 0.8em;
-  font-size: 1.5em;
-  border-radius: 1em;
+  @media screen and (max-width: 1024px) {
+    font-size: 50px;
+  }
+
+  @media screen and (min-width: 1920px) {
+    font-size: 90px;
+  }
 }
 
 .main {
@@ -77,7 +92,8 @@
 
 .footer {
   width: 100%;
-  flex: 0 0 6.25em;
+  flex: 0 0 6em;
+  min-height: 60px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
@@ -90,17 +106,21 @@
 .footer-rsschool {
   justify-self: start;
   width: 11.75em;
+  min-width: 100px;
   height: 4.375em;
+  min-height: 36px;
   background: url('./assets/svg/rs-school-js.svg') center / cover no-repeat;
 }
 
 .footer-year {
-  font-size: 2em;
+  font-size: 16px;
 }
 
 .footer-github {
   justify-self: end;
   width: 4.375em;
+  min-width: 40px;
   height: 4.375em;
+  min-height: 40px;
   background: url('./assets/svg/github.svg') center / cover no-repeat;
 }

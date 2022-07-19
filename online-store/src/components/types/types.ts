@@ -95,7 +95,7 @@ export interface ISettings {
     productid: number[];
     maxproducts: number;
   };
-  searchstring: string | null;
+  searchstring: string;
 }
 
 export interface IControls {

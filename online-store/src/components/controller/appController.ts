@@ -138,8 +138,12 @@ class AppController {
     }
 
     if (controls.headerSearch) {
+      // set controls state from settings
+      controls.headerSearch.value = AppController.settings.searchstring;
+      // set control events
       controls.headerSearch.addEventListener('search', (): void => {
         AppController.settings.searchstring = controls?.headerSearch?.value as string;
+        this.setSettings();
         productsDrawCallback(this.getProducts());
       });
     }
