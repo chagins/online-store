@@ -26,5 +26,5 @@ module.exports = {
     "indent": ["error", 2],
     // "prettier/prettier": "error"
   },
-  ignorePatterns: ["**/*.js"]
+  ignorePatterns: ["**/*.js", "tests/**/*"]
 };
