@@ -1,13 +1,13 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require("copy-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
 
 const config = {
   entry: path.resolve(__dirname, './src/index.ts'),
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, '../dist')
+    path: path.resolve(__dirname, '../dist'),
   },
   mode: 'development',
   devtool: 'source-map',
@@ -18,30 +18,28 @@ const config = {
     }),
     new CleanWebpackPlugin(),
     new CopyPlugin({
-      patterns: [
-        { from: "./src/assets/img", to: "../dist/assets/img" },
-      ],
-    })
+      patterns: [{ from: './src/assets/img', to: '../dist/assets/img' }],
+    }),
   ],
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.s[ac]ss$/i,
         use: [
-          "style-loader",   // Creates `style` nodes from JS strings
-          "css-loader",     // Translates CSS into CommonJS
+          'style-loader', // Creates `style` nodes from JS strings
+          'css-loader', // Translates CSS into CommonJS
           // "sass-loader",    // Compiles Sass to CSS
           {
-            loader: "sass-loader",
+            loader: 'sass-loader',
             options: {
               sourceMap: true,
-            }
-          }
+            },
+          },
         ],
       },
       {

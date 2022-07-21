@@ -8,7 +8,7 @@
     "dev": "webpack --mode development",
     "prod": "webpack --mode production",
     "lint": "eslint --fix src/",
-    "pretty": "prettier --write src/",
+    "pretty": "prettier --write .",
     "test": "jest --verbose"
   },
   "repository": {
