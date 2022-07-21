@@ -1,11 +1,12 @@
 import AppSettings from '../src/components/controller/appSettings';
 import bikesJSON from '../src/assets/json/bikes.json';
+import * as t from './testData';
 
 describe('AppSettings\'s "saveSettings" method', (): void => {
   const settings = new AppSettings(bikesJSON);
   settings.saveSettings(settings['appSettings']);
   const isObjectPresent = Object.keys(localStorage).some(
-    (item) => item === settings['localStorageName']
+    (item): boolean => item === settings['localStorageName']
   );
   const settingsFromStorage = JSON.parse(
     localStorage.getItem(settings['localStorageName']) as string
@@ -54,22 +55,7 @@ describe('AppSettings\'s "collectSettings" method', (): void => {
   const colorTypesBefore = [...settings['appSettings'].filter.color.types];
   settings['collectSettings']();
   const colorTypesAfter = [...settings['appSettings'].filter.color.types];
-  const colors = [
-    'Green',
-    'Purple',
-    'Grey',
-    'Olive',
-    'Lime',
-    'Gray',
-    'Alloy',
-    'Violet',
-    'Multi',
-    'Blue',
-    'Red',
-    'Black',
-    'Bronze',
-  ];
-  const isAllColorsPresents = colors.every((item) => colorTypesAfter.includes(item));
+  const isAllColorsPresents = t.colors.every((item): boolean => colorTypesAfter.includes(item));
 
   test('Check that collectSettings fills available options', (): void => {
     expect(colorTypesBefore).not.toEqual(colorTypesAfter);
