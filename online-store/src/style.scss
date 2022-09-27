@@ -1,0 +1,130 @@
+@import './styles/root';
+/* main page style */
+
+html {
+  scroll-behavior: smooth;
+}
+
+.body {
+  padding: 0.8rem;
+  min-height: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-family: 'Roboto';
+  color: $color_main-white;
+  font-size: 0.8vw;
+}
+
+.header {
+  width: 100%;
+  min-height: 70px;
+  flex: 0 0 9em;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+  padding: 0 3em;
+  background-color: $color_main-black;
+  border-radius: 1em;
+}
+
+.header-search {
+  justify-self: end;
+  width: 20em;
+  max-width: 300px;
+  height: 3em;
+  min-height: 30px;
+  padding: 0 0.8em;
+  font-size: 1.5em;
+  border-radius: 1em;
+}
+
+.header-logo {
+  justify-self: start;
+  width: 8.75em;
+  min-width: 70px;
+  height: 6.313em;
+  min-height: 50px;
+  background: url('./assets/svg/logo.svg') center / cover no-repeat;
+}
+
+.header-title {
+  font-family: 'Metal';
+  font-size: 6em;
+  color: #ff7c02;
+  text-shadow: #fff 5px 0px 0px, #fff 4.90033px 0.993347px 0px, #fff 4.60531px 1.94709px 0px,
+    #fff 4.12668px 2.82321px 0px, #fff 3.48353px 3.58678px 0px, #fff 2.70151px 4.20736px 0px,
+    #fff 1.81179px 4.6602px 0px, #fff 0.849836px 4.92725px 0px, #fff -0.145998px 4.99787px 0px,
+    #fff -1.13601px 4.86924px 0px, #fff -2.08073px 4.54649px 0px, #fff -2.94251px 4.04248px 0px,
+    #fff -3.68697px 3.37732px 0px, #fff -4.28444px 2.57751px 0px, #fff -4.71111px 1.67494px 0px,
+    #fff -4.94996px 0.7056px 0px, #fff -4.99147px -0.291871px 0px, #fff -4.83399px -1.27771px 0px,
+    #fff -4.48379px -2.2126px 0px, #fff -3.95484px -3.05929px 0px, #fff -3.26822px -3.78401px 0px,
+    #fff -2.4513px -4.35788px 0px, #fff -1.53666px -4.75801px 0px, #fff -0.560763px -4.96845px 0px,
+    #fff 0.437495px -4.98082px 0px, #fff 1.41831px -4.79462px 0px, #fff 2.34258px -4.41727px 0px,
+    #fff 3.17346px -3.86382px 0px, #fff 3.87783px -3.15633px 0px, #fff 4.4276px -2.32301px 0px,
+    #fff 4.80085px -1.39708px 0px, #fff 4.98271px -0.415447px 0px;
+
+  @media screen and (max-width: 1024px) {
+    font-size: 50px;
+  }
+
+  @media screen and (min-width: 1920px) {
+    font-size: 90px;
+  }
+}
+
+.main {
+  flex: 1 1 auto;
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  padding: 1rem;
+  flex-flow: column nowrap;
+  align-items: center;
+  column-gap: 1rem;
+  row-gap: 1rem;
+  box-shadow: 1px 1px 4px #00000040;
+  border-radius: 1rem;
+}
+
+.footer {
+  width: 100%;
+  flex: 0 0 6em;
+  min-height: 60px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+  padding: 0 3em;
+  background-color: $color_main-black;
+  border-radius: 1em;
+}
+
+.footer-rsschool {
+  justify-self: start;
+  width: 11.75em;
+  min-width: 100px;
+  height: 4.375em;
+  min-height: 36px;
+  background: url('./assets/svg/rs-school-js.svg') center / cover no-repeat;
+}
+
+.footer-year {
+  font-size: 16px;
+}
+
+.footer-github {
+  justify-self: end;
+  width: 4.375em;
+  min-width: 40px;
+  height: 4.375em;
+  min-height: 40px;
+  background: url('./assets/svg/github.svg') center / cover no-repeat;
+}

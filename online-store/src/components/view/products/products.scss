@@ -1,0 +1,148 @@
+@import '../../../styles/root';
+
+.content-products {
+  width: 100%;
+  // height: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 1vw;
+
+  &.hide {
+    display: none;
+  }
+
+  .product-card {
+    padding: 0.625rem;
+    width: 31.25em;
+    max-width: 500px;
+    min-width: 380px;
+
+    height: 27em;
+    max-height: 432px;
+    min-height: 328px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: $color_main-black;
+    box-shadow: 1px 1px 4px #00000040;
+    border-radius: 1rem;
+
+    &:hover {
+      outline: $color_main-black solid 2px;
+      cursor: zoom-in;
+    }
+
+    &.incart {
+      outline: $color_main-yellow solid 2px;
+
+      .buy-btn {
+        color: $color_main-yellow;
+      }
+    }
+
+    .card-picture {
+      margin: 0 auto;
+      max-width: 416px;
+      min-width: 244px;
+      max-height: 56%;
+      min-height: 142px;
+      display: block;
+    }
+
+    .card-props {
+      padding-top: 1rem;
+    }
+
+    .product-name {
+      font-size: 1.3em;
+      color: $color_main-yellow;
+      text-shadow: $color_main-black 2px 0px 0px, $color_main-black 1.75517px 0.958851px 0px,
+        $color_main-black 1.0806px 1.68294px 0px, $color_main-black 0.141474px 1.99499px 0px,
+        $color_main-black -0.832294px 1.81859px 0px, $color_main-black -1.60229px 1.19694px 0px,
+        $color_main-black -1.97998px 0.28224px 0px, $color_main-black -1.87291px -0.701566px 0px,
+        $color_main-black -1.30729px -1.5136px 0px, $color_main-black -0.421592px -1.95506px 0px,
+        $color_main-black 0.567324px -1.91785px 0px, $color_main-black 1.41734px -1.41108px 0px,
+        $color_main-black 1.92034px -0.558831px 0px;
+
+      @media screen and (max-width: 1280px) {
+        font-size: 16px;
+      }
+
+      @media screen and (min-width: 1920px) {
+        font-size: 24px;
+      }
+    }
+
+    .product-details {
+      padding-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .bike-props {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .rating {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.313rem;
+    }
+
+    .star-yellow {
+      width: 1.563rem;
+      height: 1.563rem;
+      background: url('../../../assets/svg/star-yellow.svg') center / cover no-repeat;
+    }
+
+    .star-gray {
+      width: 1.563rem;
+      height: 1.563rem;
+      background: url('../../../assets/svg/star-gray.svg') center / cover no-repeat;
+    }
+
+    .size {
+      font-size: 1.25rem;
+    }
+
+    .price {
+      font-size: 1.563rem;
+      font-weight: bold;
+    }
+
+    .buy-btn {
+      width: 9rem;
+      height: 5.5rem;
+      font-size: 2rem;
+      background-color: $color_main-black;
+      color: $color_main-white;
+      border-radius: 1rem;
+      box-shadow: 0px 4px 4px #00000040;
+
+      &:hover {
+        color: $color_main-yellow;
+      }
+
+      &:active {
+        transform: translateY(2px);
+        box-shadow: none;
+      }
+    }
+
+    .product-particular {
+      display: none;
+      margin-top: 1rem;
+      font-size: 1.25rem;
+
+      .particular:nth-child(odd) {
+        background: #ccc;
+      }
+    }
+  }
+}
