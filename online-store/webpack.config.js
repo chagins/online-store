@@ -7,7 +7,7 @@ const config = {
   entry: path.resolve(__dirname, './src/index.ts'),
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, 'dist'),
   },
   mode: 'development',
   devtool: 'source-map',
